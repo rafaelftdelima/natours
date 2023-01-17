@@ -1,0 +1,19 @@
+{
+  "name": "natours",
+  "version": "1.0.0",
+  "description": "Learning Node.js, Express and MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/rafaelftdelima/natours.git"
+  },
+  "author": "Rafael de Lima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/rafaelftdelima/natours/issues"
+  },
+  "homepage": "https://gitlab.com/rafaelftdelima/natours#readme"
+}

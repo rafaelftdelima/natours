@@ -4,6 +4,8 @@ const express = require('express');
 
 const app = express();
 
+app.use(express.json());
+
 /* app.get('/', (request, response) => {
     response.status(200).json({ message: 'Hello from the server-side!', app: 'Natours' });
 });
@@ -21,6 +23,22 @@ app.get('/api/v1/tours', (request, response) => {
         data: {
             tours,
         },
+    });
+});
+
+app.post('/api/v1/tours', (request, response) => {
+    // console.log(request.body);
+    const newId = tours[tours.length - 1].id + 1;
+    const newTour = Object.assign({ id: newId }, request.body);
+
+    tours.push(newTour);
+    fs.writeFile(`${__dirname}/dev-data/data/tours-simple.json`, JSON.stringify(tours), (error) => {
+        response.status(201).json({
+            status: 'sucsess',
+            data: {
+                tour: newTour,
+            },
+        });
     });
 });
 

@@ -1,8 +1,12 @@
 const fs = require('fs');
-const { request, response } = require('express');
 const express = require('express');
+const morgan = require('morgan');
 
 const app = express();
+
+/* 1) MIDDLEWARES */
+
+app.use(morgan('dev'));
 app.use(express.json());
 
 app.use((request, response, next) => {
@@ -18,6 +22,8 @@ app.use((request, response, next) => {
 });
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`));
+
+/* 2) ROUTE HANDLERS */
 
 const getAllTours = (request, response) => {
     console.log(request.requestTime);
@@ -70,7 +76,7 @@ const createTour = (request, response) => {
     });
 };
 
-const patchTour = (request, response) => {
+const updateTour = (request, response) => {
     if (request.params.id * 1 > tours.length) {
         return response.status(404).json({
             status: 'fail',
@@ -98,13 +104,13 @@ const deleteTour = (request, response) => {
     });
 };
 
-app.get('api/v1/tours', getAllTours);
-app.get('/api/v1/tours/:id', getTour);
-app.post('/api/v1/tours', createTour);
-app.patch('/api/v1/tours/:id', patchTour);
-app.delete('/api/v1/tours/:id', deleteTour);
+/* 3) ROUTERS */
 
-app.route('/api/v1/tours').get(getAllTours);
+app.route('api/v1/tours').get(getAllTours).post(createTour);
+
+app.route('/api/v1/tours/:id').get(getTour).patch(updateTour).delete(deleteTour);
+
+/* 4) START SERVER */
 
 const port = 1111;
 

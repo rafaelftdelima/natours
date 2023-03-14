@@ -37,9 +37,23 @@ const tourSchema = new mongoose.Schema({
         type: Number,
         default: 4.5
     }
+}, {
+    versionKey: false
 });
 
 const Tour = mongoose.model('Tour', tourSchema);
+
+const testTour = new Tour({
+    name: 'The Forest Hiker',
+    rating: 4.7,
+    price: 297
+});
+
+testTour.save().then(document => {
+    console.log(document);
+}).catch(error => {
+    console.log('Error:', error);
+});
 
 const port = process.env.PORT || 1111;
 

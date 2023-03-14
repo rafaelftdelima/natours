@@ -1,8 +1,9 @@
-const fs = require('fs');
+/* const fs = require('fs'); */
+const Tour = require('./../models/tourModel');
 
-const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`));
+/* const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)); */
 
-exports.checkID = (request, response, next, value) => {
+/* exports.checkID = (request, response, next, value) => {
     console.log(`Tour id is: ${value}`);
     if (request.params.id * 1 > tours.length) {
         return response.status(404).json({
@@ -11,7 +12,7 @@ exports.checkID = (request, response, next, value) => {
         });
     }
     next();
-}
+} */
 
 exports.checkBody = (request, response, next) => {
     if (!request.body.name || !request.body.price) {
@@ -29,10 +30,10 @@ exports.getAllTours = (request, response) => {
     response.status(200).json({
         status: 'success',
         requestAt: request.requestTime,
-        results: tours.length,
+        /* results: tours.length,
         data: {
             tours,
-        },
+        }, */
     });
 };
 
@@ -40,26 +41,26 @@ exports.getTour = (request, response) => {
     console.log(request.params);
 
     const id = request.params.id * 1;
-    const tour = tours.find((element) => element.id === id);
+    /* const tour = tours.find((element) => element.id === id);
 
     if (!tour) {
         return response.status(404).json({
             status: 'fail',
             message: 'invalid id',
         });
-    }
+    } */
 
-    response.status(200).json({
+    /* response.status(200).json({
         status: 'success',
         results: tours.length,
         data: {
             tour,
         },
-    });
+    }); */
 };
 
 exports.createTour = (request, response) => {
-    const newId = tours[tours.length - 1].id + 1;
+    /* const newId = tours[tours.length - 1].id + 1;
     const newTour = Object.assign({ id: newId }, request.body);
 
     tours.push(newTour);
@@ -71,6 +72,13 @@ exports.createTour = (request, response) => {
                 tour: newTour,
             },
         });
+    }); */
+
+    response.status(201).json({
+        status: 'sucsess',
+        /* data: {
+            tour: newTour,
+        }, */
     });
 };
 

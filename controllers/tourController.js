@@ -1,16 +1,5 @@
 const Tour = require('./../models/tourModel');
 
-exports.checkBody = (request, response, next) => {
-    if (!request.body.name || !request.body.price) {
-        return response.status(400).json({
-            status: 'fail',
-            message: 'Missing name or price'
-        });
-    }
-    
-    next();
-};
-
 exports.getAllTours = (request, response) => {
     response.status(200).json({
         status: 'success',
